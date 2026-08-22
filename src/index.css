@@ -1,0 +1,47 @@
+:root {
+  color-scheme: dark;
+  --bg: #101418;
+  --bg-raised: #171c21;
+  --bg-hover: #1d242b;
+  --text: #ece8e1;
+  --text-muted: #9aa3ad;
+  --text-faint: #6d7782;
+  --line: #2a323a;
+  --accent: #c9a36a;
+  --good: #6fba8a;
+  --bad: #d36b6b;
+  --warn: #c9a36a;
+  --info: #7ea4c8;
+  --chart-actual: #6fba8a;
+  --chart-budget: #8b949e;
+  --chart-forecast: #7ea4c8;
+  --font: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+}
+
+button,
+input {
+  font-size: inherit;
+}
