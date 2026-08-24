@@ -1,19 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #101418;
-  --bg-raised: #171c21;
-  --bg-hover: #1d242b;
-  --text: #ece8e1;
-  --text-muted: #9aa3ad;
-  --text-faint: #6d7782;
-  --line: #2a323a;
-  --accent: #c9a36a;
+  --bg: #0a1220;
+  --bg-raised: #111d33;
+  --bg-hover: #17253f;
+  --text: #e7ecf5;
+  --text-muted: #94a3bc;
+  --text-faint: #62708c;
+  --line: #253355;
+  --accent: #5b9bd5;
   --good: #6fba8a;
   --bad: #d36b6b;
   --warn: #c9a36a;
   --info: #7ea4c8;
   --chart-actual: #6fba8a;
-  --chart-budget: #8b949e;
+  --chart-budget: #7f8bab;
   --chart-forecast: #7ea4c8;
   --font: "IBM Plex Sans", "Segoe UI", sans-serif;
   --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
@@ -44,4 +44,17 @@ button {
 button,
 input {
   font-size: inherit;
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-raised: #ffffff;
+    --bg-hover: #f2f4f8;
+    --text: #12182a;
+    --text-muted: #454f66;
+    --text-faint: #6b7488;
+    --line: #cdd3e0;
+  }
 }
