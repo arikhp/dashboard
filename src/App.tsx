@@ -45,7 +45,7 @@ const PERIODS: { id: Period; label: string }[] = [
   { id: "july", label: "July flash" },
 ];
 
-const PIE_COLORS = ["#c9a36a", "#7ea4c8", "#6fba8a"];
+const PIE_COLORS = ["#5b9bd5", "#7ea4c8", "#6fba8a"];
 
 type SeriesKey = "Actual" | "Budget" | "Forecast";
 
@@ -119,6 +119,27 @@ function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function PdfIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+      <path d="M14 2v6h6" />
+      <path d="M12 11v7" />
+      <path d="M9.5 15.5 12 18l2.5-2.5" />
+    </svg>
+  );
+}
+
 function Intro({ onDone }: { onDone: () => void }) {
   const [leaving, setLeaving] = useState(false);
 
@@ -135,7 +156,7 @@ function Intro({ onDone }: { onDone: () => void }) {
   return (
     <div className={leaving ? "intro is-out" : "intro"} onClick={finish} role="presentation">
       <div className="intro-inner">
-        <Logo size={96} animate />
+        <Logo size={132} animate />
         <div className="intro-name">Aether</div>
         <div className="intro-unit">Systems</div>
         <div className="intro-tag">Financial planning & analysis</div>
@@ -286,7 +307,7 @@ export function App() {
       <div className={ready ? "shell is-in" : "shell"}>
         <header className="topbar">
           <button className="brand" type="button" onClick={replayIntro} title="Replay intro">
-            <Logo size={28} />
+            <Logo size={36} />
             <Wordmark compact />
           </button>
           <div className="topbar-controls">
@@ -307,11 +328,36 @@ export function App() {
             >
               What-if
             </button>
+            <button
+              className="pill pill-icon"
+              type="button"
+              onClick={() => window.print()}
+              title="Export this report to PDF"
+            >
+              <PdfIcon />
+              Export PDF
+            </button>
           </div>
         </header>
 
         <div className="workspace">
           <main className="page">
+            <div className="print-watermark" aria-hidden="true">
+              <Logo size={260} />
+              <div className="print-watermark-text">Aether Systems</div>
+            </div>
+            <div className="print-header">
+              <Logo size={44} />
+              <div className="print-header-text">
+                <div className="print-company">Aether Systems</div>
+                <div className="print-report-title">
+                  Mid-year FP&A Report · {pack.label} · {pack.range}
+                </div>
+                <div className="print-meta">
+                  Generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                </div>
+              </div>
+            </div>
             <header className="hero">
               <div className="eyebrow">
                 Mid-year board pack
