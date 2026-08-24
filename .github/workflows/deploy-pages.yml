@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [fpa-dashboard]
+    branches: [fpa-dashboard, pre-prod]
   workflow_dispatch:
 
 permissions:
@@ -18,16 +18,52 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout production (fpa-dashboard)
+        uses: actions/checkout@v4
+        with:
+          ref: fpa-dashboard
+          path: prod
+
+      - name: Checkout preview (pre-prod)
+        uses: actions/checkout@v4
+        with:
+          ref: pre-prod
+          path: preview
+        continue-on-error: true
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+
+      - name: Build production
+        working-directory: prod
+        env:
+          PAGES_BASE: /dashboard/
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build preview
+        if: hashFiles('preview/package.json') != ''
+        working-directory: preview
+        env:
+          PAGES_BASE: /dashboard/preview/
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble site
+        run: |
+          mkdir -p site
+          cp -r prod/dist/. site/
+          if [ -d preview/dist ]; then
+            mkdir -p site/preview
+            cp -r preview/dist/. site/preview/
+          fi
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
 
   deploy:
     needs: build
